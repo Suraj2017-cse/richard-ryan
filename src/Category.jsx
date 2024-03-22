@@ -1,4 +1,25 @@
+import { useState, useEffect } from "react";
+
+
 const Category = () => {
+    const [revealed, setRevealed] = useState([]);
+
+useEffect(() => {
+const scrollReveal = () => {
+document.querySelectorAll("[data-reveal]").forEach((el, index) => {
+const elementIsInScreen = el.getBoundingClientRect().top < window.innerHeight / 1.15; setRevealed(prev=> {
+  const newState = [...prev];
+  newState[index] = elementIsInScreen;
+  return newState;
+  });
+  });
+  };
+
+  window.addEventListener("scroll", scrollReveal);
+  scrollReveal(); // Initial call to reveal elements in viewport on load
+
+  return () => window.removeEventListener("scroll", scrollReveal);
+  }, []);
 return (
     // CATEGORY
 <section className="section category" aria-label="photography category">
@@ -19,7 +40,7 @@ return (
                 </a>
             </li>
 
-            <li className="category-item" data-reveal>
+            <li className={revealed ? "category-item revealed" : "category-item"} data-reveal>
                 <a href="#" className="category-card">
 
                     <h3 className="h4 card-title">Model,</h3>

@@ -291,6 +291,7 @@ body.active {
 
 .btn-icon:is(:hover, :focus-visible) {
     background-color: var(--hover-bg-color, var(--white));
+    color: var(--smokey-black);
 }
 
 .btn-icon:is(:hover, :focus-visible) path {

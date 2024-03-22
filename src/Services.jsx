@@ -6,7 +6,6 @@ const [revealed, setRevealed] = useState([]);
 const [serviceData, setServiceData] = useState([])
 //  const [isLoading, setIsLoading] = useState(true);
 // const showData = serviceData.user.services
-console.log(serviceData);
 
 useEffect(() => {
 const scrollReveal = () => {
@@ -37,7 +36,6 @@ const elementIsInScreen = el.getBoundingClientRect().top < window.innerHeight / 
   }
   const data = await response.json();
   setServiceData(data.user.services)
-  // console.log(data.user.services); // Do something with the fetched data
   } catch (error) {
   console.error("There was a problem fetching the data:", error);
   }
@@ -72,7 +70,7 @@ const elementIsInScreen = el.getBoundingClientRect().top < window.innerHeight / 
           </div>
 
           <a href="#" className="btn-icon" aria-label="See more">
-            454
+            {data.charge}
           </a>
 
         </div>

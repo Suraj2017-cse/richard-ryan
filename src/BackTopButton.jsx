@@ -24,7 +24,7 @@ const BackTopButton = () => {
     <>
     <button
       data-back-top-btn
-      className={scrollPercent > 5 ? 'back-top-btn show' : ''}
+      className={scrollPercent > 5 ? 'back-top-btn show' : 'back-top-btn '}
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
     >
       {scrollPercent.toFixed(0)}%

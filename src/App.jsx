@@ -19,7 +19,7 @@ return (
     <article>
       {/* HERO */}
       <Hero />
-      {/* GALLERY */}
+      {/* GALLERY & PROJECTS */}
       <Gallery />
       {/* CATEGORY */}
       <Category />
@@ -38,12 +38,6 @@ return (
   <BackTopButton />
   {/* - #CUSTOM CURSOR */}
   <CustomCursor />
-
-  {/* <div className="cursor" data-cursor></div> */}
-
-
-
-
 
 </>
 )

@@ -1,4 +1,29 @@
+import { useState, useEffect } from "react";
+
 const Gallery = () => {
+
+const [projectData, setProjectData] = useState([])
+// console.log(projectData);
+
+const url = 'https://portfolio-backend-30mp.onrender.com/api/v1/get/user/65b3a22c01d900e96c4219ae';
+useEffect(() => {
+const fetchData = async () => {
+try {
+const response = await fetch(url);
+if (!response.ok) {
+throw new Error('Network response was not ok');
+}
+const data = await response.json();
+setProjectData(data.user.projects)
+
+} catch (error) {
+console.error("There was a problem fetching the data:", error);
+}
+};
+
+fetchData();
+}, [url]);
+
 return (
 // GALLERY
 <section className="section gallery" id="gallery">
@@ -6,198 +31,59 @@ return (
 
         <ul className="gallery-list">
 
-            <li className="gallery-item" data-reveal>
+            {
+            projectData.map((data)=>{
+            return( 
+            <li key={data._id} className="gallery-item" data-reveal>
 
                 <div className="gallery-card">
 
                     <figure className="card-banner img-holder has-before" style={{"--width": "450", "--height": "625"}}>
-                        <img src="./images/gallery-1.jpg" width="450" height="625" loading="lazy" alt="The Drunken"
+                        <img src={data.image.url} width="450" height="625" loading="lazy" alt="The Drunken"
                             className="img-cover" />
                     </figure>
 
                     <div className="card-content">
                         <h3 className="h6">
-                            <a href="#" className="card-title">The Drunken</a>
+                            <a href="#" className="card-title">{data.title}</a>
                         </h3>
 
-                        <span className="card-tag">Food, Event</span>
+                        <span className="card-tag">{(data.techStack.length > 1) ? data.techStack + "," : data.techStack
+                                }</span> </div> <a href="#" className="btn-icon">
+                                <img src="./images/arrow-forward.svg" width="43" height="20" loading="lazy"
+                                    alt="arrow-forward icon" />
+                                </a>
+
                     </div>
 
-                    <a href="#" className="btn-icon">
-                        <img src="./images/arrow-forward.svg" width="43" height="20" loading="lazy"
-                            alt="arrow-forward icon" />
-                    </a>
+                    <div className="gallery-card">
 
-                </div>
+                        <figure className="card-banner img-holder has-before"
+                            style={{"--width": "450", "--height": "625"}}>
+                            <img src={data.image.url} width="450" height="625" loading="lazy" alt="Lettuce Entertain"
+                                className="img-cover" />
+                        </figure>
 
-                <div className="gallery-card">
+                        <div className="card-content">
+                            <h3 className="h6">
+                                <a href="#" className="card-title">{data.title}</a>
+                            </h3>
 
-                    <figure className="card-banner img-holder has-before" style={{"--width": "450", "--height": "625"}}>
-                        <img src="./images/gallery-2.jpg" width="450" height="625" loading="lazy"
-                            alt="Lettuce Entertain" className="img-cover" />
-                    </figure>
+                            <span className="card-tag">{(data.techStack.length > 1) ? data.techStack + "," : data.techStack
+                                }</span>
+                        </div>
 
-                    <div className="card-content">
-                        <h3 className="h6">
-                            <a href="#" className="card-title">Lettuce Entertain</a>
-                        </h3>
+                        <a href="#" className="btn-icon">
+                            <img src="./images/arrow-forward.svg" width="43" height="20" loading="lazy"
+                                alt="arrow-forward icon" />
+                        </a>
 
-                        <span className="card-tag">Landscape</span>
                     </div>
-
-                    <a href="#" className="btn-icon">
-                        <img src="./images/arrow-forward.svg" width="43" height="20" loading="lazy"
-                            alt="arrow-forward icon" />
-                    </a>
-
-                </div>
 
             </li>
-
-            <li className="gallery-item" data-reveal>
-
-                <div className="gallery-card">
-
-                    <figure className="card-banner img-holder has-before" style={{"--width": "450", "--height": "625"}}>
-                        <img src="./images/gallery-3.jpg" width="450" height="625" loading="lazy" alt="Leaping Lizard"
-                            className="img-cover" />
-                    </figure>
-
-                    <div className="card-content">
-                        <h3 className="h6">
-                            <a href="#" className="card-title">Leaping Lizard</a>
-                        </h3>
-
-                        <span className="card-tag">Model, Fashion</span>
-                    </div>
-
-                    <a href="#" className="btn-icon">
-                        <img src="./images/arrow-forward.svg" width="43" height="20" loading="lazy"
-                            alt="arrow-forward icon" />
-                    </a>
-
-                </div>
-
-                <div className="gallery-card">
-
-                    <figure className="card-banner img-holder has-before" style={{"--width": "450", "--height": "625"}}>
-                        <img src="./images/gallery-4.jpg" width="450" height="625" loading="lazy" alt="Juan More Taco"
-                            className="img-cover" />
-                    </figure>
-
-                    <div className="card-content">
-                        <h3 className="h6">
-                            <a href="#" className="card-title">Juan More Taco</a>
-                        </h3>
-
-                        <span className="card-tag">Architecture, Event</span>
-                    </div>
-
-                    <a href="#" className="btn-icon">
-                        <img src="./images/arrow-forward.svg" width="43" height="20" loading="lazy"
-                            alt="arrow-forward icon" />
-                    </a>
-
-                </div>
-
-            </li>
-
-            <li className="gallery-item" data-reveal>
-
-                <div className="gallery-card">
-
-                    <figure className="card-banner img-holder has-before" style={{"--width": "450", "--height": "625"}}>
-                        <img src="./images/gallery-5.jpg" width="450" height="625" loading="lazy" alt="Goldilox Bagels"
-                            className="img-cover" />
-                    </figure>
-
-                    <div className="card-content">
-                        <h3 className="h6">
-                            <a href="#" className="card-title">Goldilox Bagels</a>
-                        </h3>
-
-                        <span className="card-tag">People, Film</span>
-                    </div>
-
-                    <a href="#" className="btn-icon">
-                        <img src="./images/arrow-forward.svg" width="43" height="20" loading="lazy"
-                            alt="arrow-forward icon" />
-                    </a>
-
-                </div>
-
-                <div className="gallery-card">
-
-                    <figure className="card-banner img-holder has-before" style={{"--width": "450", "--height": "625"}}>
-                        <img src="./images/gallery-6.jpg" width="450" height="625" loading="lazy" alt="Cookie Monstah"
-                            className="img-cover" />
-                    </figure>
-
-                    <div className="card-content">
-                        <h3 className="h6">
-                            <a href="#" className="card-title">Cookie Monstah</a>
-                        </h3>
-
-                        <span className="card-tag">Wedding, Event</span>
-                    </div>
-
-                    <a href="#" className="btn-icon">
-                        <img src="./images/arrow-forward.svg" width="43" height="20" loading="lazy"
-                            alt="arrow-forward icon" />
-                    </a>
-
-                </div>
-
-            </li>
-
-            <li className="gallery-item" data-reveal>
-
-                <div className="gallery-card">
-
-                    <figure className="card-banner img-holder has-before" style={{"--width": "450", "--height": "625"}}>
-                        <img src="./images/gallery-7.jpg" width="450" height="625" loading="lazy"
-                            alt="Divine Pastabilities" className="img-cover" />
-                    </figure>
-
-                    <div className="card-content">
-                        <h3 className="h6">
-                            <a href="#" className="card-title">Divine Pastabilities</a>
-                        </h3>
-
-                        <span className="card-tag">Wedding, Model</span>
-                    </div>
-
-                    <a href="#" className="btn-icon">
-                        <img src="./images/arrow-forward.svg" width="43" height="20" loading="lazy"
-                            alt="arrow-forward icon" />
-                    </a>
-
-                </div>
-
-                <div className="gallery-card">
-
-                    <figure className="card-banner img-holder has-before" style={{"--width": "450", "--height": "625"}}>
-                        <img src="./images/gallery-8.jpg" width="450" height="625" loading="lazy" alt="The Lockhart Bar"
-                            className="img-cover" />
-                    </figure>
-
-                    <div className="card-content">
-                        <h3 className="h6">
-                            <a href="#" className="card-title">The Lockhart Bar</a>
-                        </h3>
-
-                        <span className="card-tag">Health & Wellnes</span>
-                    </div>
-
-                    <a href="#" className="btn-icon">
-                        <img src="./images/arrow-forward.svg" width="43" height="20" loading="lazy"
-                            alt="arrow-forward icon" />
-                    </a>
-
-                </div>
-
-            </li>
-
+            )
+            })
+            }
         </ul>
 
         <a href="#service" className="scroll-down">

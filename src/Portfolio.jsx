@@ -1,6 +1,28 @@
+import { useEffect, useState } from "react";
+
 const Portfolio = () => {
+
+    const [revealed, setRevealed] = useState([]);
+
+useEffect(() => {
+const scrollReveal = () => {
+document.querySelectorAll("[data-reveal]").forEach((el, index) => {
+const elementIsInScreen = el.getBoundingClientRect().top < window.innerHeight / 1.15; 
+setRevealed(prev=> {
+  const newState = [...prev];
+  newState[index] = elementIsInScreen;
+  return newState;
+  });
+  });
+  };
+
+  window.addEventListener("scroll", scrollReveal);
+  scrollReveal(); // Initial call to reveal elements in viewport on load
+
+  return () => window.removeEventListener("scroll", scrollReveal);
+  }, []);
+    
 return (
-// PORTFOLIO
 <section className="section portfolio" id="portfolio" aria-labelledby="portfolio-label">
     <div className="container">
 
@@ -8,9 +30,9 @@ return (
 
             <div className="wrapper">
 
-                <h2 className="h2 section-title" id="portfolio-label" data-reveal>My Recent Work.</h2>
+                <h2 className={revealed ? "h2 section-title revealed" :"h2 section-title"} id="portfolio-label" data-reveal>My Recent Work.</h2>
 
-                <div className="portfolio-card" data-reveal>
+                <div className={revealed ? "portfolio-card revealed" :"portfolio-card"} data-reveal>
 
                     <figure className="card-banner img-holder has-before" style={{"--width": "700", "--height": "605"}}>
                         <img src="./images/portfolio-1.jpg" width="700" height="605" loading="lazy" alt="Shoe Promo"
@@ -34,7 +56,7 @@ return (
 
                 </div>
 
-                <div className="portfolio-card" data-reveal>
+                <div className={revealed ? "portfolio-card revealed" :"portfolio-card"} data-reveal>
 
                     <figure className="card-banner img-holder has-before"
                         style={{"--width": "700", "--height": "1091"}}>
@@ -63,7 +85,7 @@ return (
 
             <div className="wrapper">
 
-                <div className="portfolio-card" data-reveal>
+                <div className={revealed ? "portfolio-card revealed" :"portfolio-card"} data-reveal>
 
                     <figure className="card-banner img-holder has-before"
                         style={{"--width": "700", "--height": "1000"}}>
@@ -88,7 +110,7 @@ return (
 
                 </div>
 
-                <div className="portfolio-card" data-reveal>
+                <div className={revealed ? "portfolio-card revealed" :"portfolio-card"} data-reveal>
 
                     <figure className="card-banner img-holder has-before" style={{"--width": '700', "--height": "850"}}>
                         <img src="./images/portfolio-4.jpg" width="700" height="850" loading="lazy" alt="Jumbo Barger"
